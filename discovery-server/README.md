@@ -1,4 +1,4 @@
-# Discovery Server (Eureka) README
+# Discovery Server
 
 ## Overview
 
