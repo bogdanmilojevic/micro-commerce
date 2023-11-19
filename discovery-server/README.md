@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Discovery Server is a microservice responsible for service discovery within a microservices architecture. It uses Netflix Eureka to manage and register microservices, allowing them to discover and communicate with each other dynamically.
+The Discovery Server is a service responsible for service discovery within a microservices architecture. It uses Netflix Eureka to manage and register microservices, allowing them to discover and communicate with each other dynamically.
 
 ## Configuration
 
@@ -40,4 +40,4 @@ Microservices send regular heartbeats to the Discovery Server to indicate they a
 If a microservice fails to send heartbeats, the Discovery Server evicts it from the registry.
 
 ### Accessing the Eureka Dashboard
-The Eureka Dashboard is accessible at http://localhost:8761 (assuming the default port). This web-based dashboard provides insights into the registered microservices, their status, and other relevant information.
+The Eureka Dashboard is accessible at http://localhost:8761. This web-based dashboard provides insights into the registered microservices, their status, and other relevant information.
