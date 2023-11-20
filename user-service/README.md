@@ -72,3 +72,7 @@ The generated JWT plays a crucial role in the user login operation. In the `logi
 - Kafka topic ('account-topic' for now) is configured using Java configuration classes as well.
 
 ## Further development
+
+- JWT token validation flow should be reconsidered. With current implementation each microservice is validating the tokens on its own, which means every service needs access to public key.
+- Keypair rotation should be implemented.
+- Refresh tokens should be implemented.
