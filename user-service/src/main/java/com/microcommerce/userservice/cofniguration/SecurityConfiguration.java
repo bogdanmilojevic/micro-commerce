@@ -1,6 +1,5 @@
 package com.microcommerce.userservice.cofniguration;
 
-import com.microcommerce.userservice.data.enums.Authority;
 import com.microcommerce.userservice.util.RSAKeyPair;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWK;
@@ -28,10 +27,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.text.ParseException;
 
 @Configuration
 //@EnableWebSecurity
@@ -93,12 +88,12 @@ public class SecurityConfiguration {
      * @return jwtDecoder bean.
      */
     @Bean
-    public JwtDecoder jwtDecoder() throws ParseException, NoSuchAlgorithmException, InvalidKeySpecException, JOSEException {
+    public JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(rsaKeyPair.getPublicKey()).build();
     }
 
     @Bean
-    public JwtEncoder jwtEncoder() throws ParseException, NoSuchAlgorithmException, InvalidKeySpecException, JOSEException {
+    public JwtEncoder jwtEncoder() {
         JWK jsonWebKey = new RSAKey.
                 Builder(rsaKeyPair.getPublicKey())
                 .privateKey(rsaKeyPair.getPrivateKey())
