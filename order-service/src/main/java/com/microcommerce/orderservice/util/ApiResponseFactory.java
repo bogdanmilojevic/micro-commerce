@@ -27,8 +27,4 @@ public class ApiResponseFactory<T> {
     public ApiResponse<T> badRequest(List<Message> messages) {
         return ApiResponse.<T>builder().badRequest(messages).build();
     }
-
-
-
-
 }

@@ -73,6 +73,6 @@ The generated JWT plays a crucial role in the user login operation. In the `logi
 
 ## Further development
 
+- There should be centralized entity for managing RSA keys; keypair rotation should be implemented.
 - JWT token validation flow should be reconsidered. With current implementation each microservice is validating the tokens on its own, which means every service needs access to public key.
-- Keypair rotation should be implemented.
 - Refresh tokens should be implemented.

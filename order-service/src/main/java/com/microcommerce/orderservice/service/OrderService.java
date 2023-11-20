@@ -86,10 +86,6 @@ public class OrderService {
         return responseFactory.successfulOperation();
     }
 
-    private ValidationResult validateOrderRequest(OrderRequest orderRequest, ValidationRule<OrderRequest> validationRule) {
-        return new Validator<OrderRequest>().validateRule(orderRequest, validationRule);
-    }
-
     private void produceOrderCreatedEvent(OrderCreatedEvent orderCreatedEvent) {
         var completableFuture = kafkaTemplate.send("notification-topic", UUID.randomUUID(), orderCreatedEvent);
         completableFuture.whenComplete((result, exception) -> {
