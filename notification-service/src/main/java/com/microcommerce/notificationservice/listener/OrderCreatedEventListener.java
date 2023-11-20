@@ -17,7 +17,7 @@ public class OrderCreatedEventListener {
 
     private final OrderCreatedEventHandlerService orderCreatedEventHandler;
 
-    @KafkaListener(topics = {"notification-topic"}, groupId = "group-id")
+    @KafkaListener(topics = {"notification-topic"}, groupId = "group-id", containerFactory = "orderCreatedEventListenerContainerFactory")
     public void listen(OrderCreatedEvent orderCreatedEvent) {
         log.info("Order created event received.");
         orderCreatedEventHandler.sendOrderConfirmedMail(orderCreatedEvent);

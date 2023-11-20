@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @EnableKafka
 @Configuration
-public class KafkaListenerConfiguration {
+public class OrderCreatedEventListenerConfiguration {
 
     // TODO: Use fields below for configuration
 //    @Value("${}")
@@ -44,7 +44,7 @@ public class KafkaListenerConfiguration {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<UUID, OrderCreatedEvent> kafkaListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<UUID, OrderCreatedEvent> orderCreatedEventListenerContainerFactory() {
         var factory = new ConcurrentKafkaListenerContainerFactory<UUID, OrderCreatedEvent>();
         factory.setConsumerFactory(orderCreatedEventConsumerFactory());
         return factory;

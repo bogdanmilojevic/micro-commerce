@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Configuration
-public class AccountCreatedListenerConfiguration {
+public class AccountCreatedEventListenerConfiguration {
 
     @Bean
     public ConsumerFactory<UUID, AccountCreatedEvent> accountCreatedEventConsumerFactory() {
