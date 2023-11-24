@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "t_order")
@@ -32,6 +33,9 @@ public class Order {
 
     @Column(name = "order_number")
     private String orderNumber;
+
+    @Column(name = "user_id")
+    private UUID userId;
 
 //    @Embedded
 //    private AuditableEntity auditableEntity;

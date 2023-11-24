@@ -36,8 +36,8 @@ public class OrderCreatedEventHandlerService {
             var helper = new MimeMessageHelper(orderConfirmationMessage, true, UTF_8_ENCODING);
             helper.setPriority(1);
             helper.setFrom(sender);
-            helper.setTo("bogi.milojevic@gmail.com");
-            helper.setSubject("Micro-Commerce Order Confirmed");
+            helper.setTo(orderCreatedEvent.getUser().getEmail());
+            helper.setSubject("MicroCommerce Order Confirmed");
             helper.setText(text, true);
 
             emailSenderService.sendHtmlMailMessage(orderConfirmationMessage, context);

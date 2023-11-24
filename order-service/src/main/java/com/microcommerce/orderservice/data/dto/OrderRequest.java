@@ -1,7 +1,6 @@
 package com.microcommerce.orderservice.data.dto;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -19,8 +18,6 @@ public class OrderRequest {
     @Valid
     private List<OrderItemRequest> orderItems;
 
-    @NotBlank
-    @UUID
-    private String userId;
-
+    @NotNull
+    private UserDto user;
 }

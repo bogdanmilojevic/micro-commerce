@@ -6,6 +6,7 @@ import com.microcommerce.common.web.ApiResponse;
 import com.microcommerce.orderservice.data.dto.EventOrderItemDto;
 import com.microcommerce.orderservice.data.dto.OrderRequest;
 import com.microcommerce.orderservice.data.dto.OrderResponse;
+import com.microcommerce.orderservice.data.dto.UserDto;
 import com.microcommerce.orderservice.data.entity.Order;
 import com.microcommerce.orderservice.data.entity.OrderItem;
 import com.microcommerce.orderservice.data.event.OrderCreatedEvent;
@@ -14,7 +15,6 @@ import com.microcommerce.orderservice.repository.OrderRepository;
 import com.microcommerce.orderservice.util.ApiResponseFactory;
 import com.microcommerce.orderservice.util.OrderUtils;
 import com.microcommerce.orderservice.util.mapstrcut.OrderItemMapper;
-import com.microcommerce.orderservice.util.mapstrcut.OrderMapper;
 import com.microcommerce.orderservice.util.validation.ProductsInStockValidationRule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class OrderService {
     private final OrderItemMapper orderItemMapper;
-    private final OrderMapper orderMapper;
     private final OrderRepository orderRepository;
 
     private final ApiResponseFactory<OrderResponse> responseFactory;
@@ -63,12 +62,6 @@ public class OrderService {
         List<EventOrderItemDto> orderItems = OrderUtils.getEventOrderItems(orderRequest, enrichedProducts);
         String orderNumber = OrderUtils.generateOrderNumber();
 
-        var orderCreatedEvent = OrderCreatedEvent.builder()
-                .orderItems(orderItems)
-                .orderNumber(orderNumber)
-                .userId(UUID.fromString(orderRequest.getUserId()))
-                .build();
-
         Set<OrderItem> entityOrderItems = orderRequest.getOrderItems()
                 .stream()
                 .map(orderItemMapper::toEntity)
@@ -81,13 +74,20 @@ public class OrderService {
                 .build();
 
         orderRepository.save(orderEntity);
-        produceOrderCreatedEvent(orderCreatedEvent);
+        produceOrderCreatedEvent(orderItems, orderNumber, orderRequest.getUser());
 
         return responseFactory.successfulOperation();
     }
 
-    private void produceOrderCreatedEvent(OrderCreatedEvent orderCreatedEvent) {
+    private void produceOrderCreatedEvent(List<EventOrderItemDto> orderItems, String orderNumber, UserDto user) {
+        var orderCreatedEvent = OrderCreatedEvent.builder()
+                .orderItems(orderItems)
+                .orderNumber(orderNumber)
+                .user(user)
+                .build();
+
         var completableFuture = kafkaTemplate.send("notification-topic", UUID.randomUUID(), orderCreatedEvent);
+
         completableFuture.whenComplete((result, exception) -> {
             if (exception != null) {
                 completableFuture.completeExceptionally(exception);
@@ -96,7 +96,6 @@ public class OrderService {
             }
         });
     }
-
 
     public ApiResponse<OrderResponse> updateOrder(OrderRequest orderRequest) {
         throw new NotImplementedException();
