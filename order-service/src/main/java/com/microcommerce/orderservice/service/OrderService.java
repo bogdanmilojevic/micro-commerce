@@ -19,6 +19,7 @@ import com.microcommerce.orderservice.util.validation.ProductsInStockValidationR
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.NotImplementedException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +45,9 @@ public class OrderService {
 
     private final KafkaTemplate<UUID, OrderCreatedEvent> kafkaTemplate;
     private final ProductClient productClient;
+
+    @Value("${kafka.topics.notification-topic}")
+    private static String notificationTopic;
 
     @Transactional
     public ApiResponse<OrderResponse> createOrder(OrderRequest orderRequest) {
@@ -86,7 +90,7 @@ public class OrderService {
                 .user(user)
                 .build();
 
-        var completableFuture = kafkaTemplate.send("notification-topic", UUID.randomUUID(), orderCreatedEvent);
+        var completableFuture = kafkaTemplate.send(notificationTopic, UUID.randomUUID(), orderCreatedEvent);
 
         completableFuture.whenComplete((result, exception) -> {
             if (exception != null) {
