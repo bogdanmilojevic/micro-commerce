@@ -19,6 +19,10 @@ spring:
   jackson:
     default-property-inclusion: non_null
 
+kafka:
+  topics:
+    notification-topic: notification-topic
+
 eureka:
   client:
     service-url:
