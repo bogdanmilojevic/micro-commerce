@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Created</title>
+  <style>
+    body {
+      font-family: 'Rubik', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+    .header {
+      background: #4CAF50;
+      padding: 10px 20px;
+    }
+
+    h1 {
+      color: #eeeeee;
+    }
+
+    p {
+      color: #555;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Welcome to Our Company!</h1>
+  </div>
+
+
+  <p>Hello </strong><strong th:text="${firstName}"></strong></p>
+
+  <p>Your account has been successfully created. To activate your account, please click the link below:</p>
+
+  <a href="[confirmationLink]">Confirm Your Account</a>
+
+  <p>If you have any questions or need assistance, feel free to contact our support team.</p>
+
+  <p>Best regards,<br>
+    Our Company</p>
+
+</div>
+
+</body>
+
+</html>
