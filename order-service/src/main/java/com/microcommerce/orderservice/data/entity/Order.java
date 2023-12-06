@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "t_order")
+@Table(name = "orders")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,8 +18,9 @@ import java.util.UUID;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
+    private UUID id;
 
     @OneToMany(mappedBy = "order")
     private Set<OrderItem> orderItems;
@@ -34,7 +35,7 @@ public class Order {
     @Column(name = "order_number")
     private String orderNumber;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private UUID userId;
 
 //    @Embedded
