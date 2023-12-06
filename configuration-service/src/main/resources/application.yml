@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: configuration-service
+  profiles:
+    active: vault, native
+  cloud:
+    config:
+      server:
+        vault:
+          host: 127.0.0.1
+          port: 8200
+          order: 1
+          kv-version: 2
+          authentication: TOKEN
+          token: 00000000-0000-0000-0000-000000000000
+          scheme: http
+          backend: ${VAULT_BACKEND}
+        native:
+          search-locations: classpath:/configs,classpath:/configs/{application}
+          order: 2
+server:
+  port: 8888
+  servlet:
+    context-path: /config
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/
