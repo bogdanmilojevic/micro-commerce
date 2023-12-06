@@ -94,7 +94,7 @@ public class AuthenticationService {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
-                .activationToken(user.getConfirmationToken().getToken().toString())
+                .activationToken(user.getConfirmationToken().getTokenId().toString())
                 .build();
 
         var completableFuture = kafkaTemplate.send("account-topic", UUID.randomUUID(), accountCreatedEvent);
