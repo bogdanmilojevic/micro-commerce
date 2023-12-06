@@ -14,7 +14,7 @@ spring:
           authentication: TOKEN
           token: 00000000-0000-0000-0000-000000000000
           scheme: http
-          backend: ${VAULT_BACKEND}
+          backend: dev
         native:
           search-locations: classpath:/configs,classpath:/configs/{application}
           order: 2
