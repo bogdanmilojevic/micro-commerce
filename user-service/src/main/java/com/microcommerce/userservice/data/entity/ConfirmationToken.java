@@ -7,7 +7,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "confirmation_token")
+@Table(name = "confirmation_tokens")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -16,20 +16,20 @@ public class ConfirmationToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "token_id")
+    private UUID tokenId;
 
-    private UUID token;
-
+    @Column(name = "expiration_date")
     private OffsetDateTime expirationDate;
 
     @OneToOne(mappedBy = "confirmationToken")
     private User user;
 
+    @Column(name = "used")
     private boolean used;
 
     public ConfirmationToken() {
-        this.token = UUID.randomUUID();
+        this.tokenId = UUID.randomUUID();
         this.expirationDate = OffsetDateTime.now().plusHours(2);
     }
 

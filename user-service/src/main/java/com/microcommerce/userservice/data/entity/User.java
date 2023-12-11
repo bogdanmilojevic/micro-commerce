@@ -10,9 +10,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "t_entity")
+@Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,26 +26,26 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private UUID userId;
 
-    @Column(unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
+    @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "date_of_birth")
     private OffsetDateTime dateOfBirth;
 
+    @Column(name = "is_enabled")
     private boolean isEnabled;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_role_junction",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")}
-    )
-    private Set<Role> authorities;
+    @OneToMany(mappedBy = "user")
+    private Set<UserRole> authorities;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "confirmation_token_id", referencedColumnName = "id", nullable = true)
@@ -53,7 +55,7 @@ public class User implements UserDetails {
         this.authorities = new HashSet<>();
     }
 
-    public User(String email, String password, String firstName, String lastName, OffsetDateTime dateOfBirth, Set<Role> authorities, boolean isEnabled) {
+    public User(String email, String password, String firstName, String lastName, OffsetDateTime dateOfBirth, Set<UserRole> authorities, boolean isEnabled) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -65,7 +67,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        return this.authorities.stream().map(UserRole::getRole).toList();
     }
 
     @Override

@@ -9,16 +9,17 @@ import org.springframework.data.mongodb.core.mapping.FieldType;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.UUID;
 
-@Document
+@Document(collation = "products")
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class Product extends AuditMetadata {
     @Id
-    private String id;
+    @Field(name = "id")
+    private UUID id;
 
     @Indexed(unique = true)
     @Field(name = "sku_code")
@@ -47,4 +48,9 @@ public class Product extends AuditMetadata {
 
     @Field(name = "is_deleted")
     private boolean isDeleted;
+
+    public Product() {
+        this.id = UUID.randomUUID();
+    }
+
 }
