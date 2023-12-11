@@ -27,6 +27,11 @@ spring:
     verify:
       host: ${VERIFY_EMAIL_HOST}
 
+kafka:
+  topics:
+    notification-topic: notification-topic
+    account-topic: account-topic
+
 server:
   port: 8083
 
