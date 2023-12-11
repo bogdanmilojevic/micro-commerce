@@ -1,5 +1,16 @@
+#!/bin/bash
+
+echo "Configuring vault server..."
+
 export VAULT_TOKEN="00000000-0000-0000-0000-000000000000"
 export VAULT_ADDR="http://127.0.0.1:8200"
+
+echo "Enabling secret engine..."
+
+# Enable the key-value secrets engine at the dev/ path
+vault secrets enable -path=dev kv
+
+echo "Adding secrets..."
 
 vault kv put dev/order-service spring.datasource.username=order spring.datasource.password=postgres jwt.public-key=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArergYCFqNNq/aSh2KsToaVJfR8Wzu6kDMMW+gb/X7WlOl1NIBUcvUOR14F8fh0vIM9E/sEvczJD2uAC7xONLBJ0tBtKdrgv/GlYGSei55fclkrK5S8oGqeyoseOVY/8Ne4iCGhpR7LEI0JQS5MjFEJOxqV8DsmWI1xhNeGj/YPg9upgMCmcsvZJAFsCGFRe6Aopri61WAl/lkwU+qnscJXsQy+hZ9ur30gfl9BF6KtVTsMQz0NLuapjflSOAlEnBFCVyutuqK11pW3YE2zRn/t5WHmruk8vOghg8+k2+Zj2TIrsvqp91+/luFGnB6ywWN/8Ry32K6ifZe0hP9eWzHQIDAQAB
 vault kv put dev/product-service spring.data.mongodb.username=product spring.data.mongodb.password=password jwt.public-key=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArergYCFqNNq/aSh2KsToaVJfR8Wzu6kDMMW+gb/X7WlOl1NIBUcvUOR14F8fh0vIM9E/sEvczJD2uAC7xONLBJ0tBtKdrgv/GlYGSei55fclkrK5S8oGqeyoseOVY/8Ne4iCGhpR7LEI0JQS5MjFEJOxqV8DsmWI1xhNeGj/YPg9upgMCmcsvZJAFsCGFRe6Aopri61WAl/lkwU+qnscJXsQy+hZ9ur30gfl9BF6KtVTsMQz0NLuapjflSOAlEnBFCVyutuqK11pW3YE2zRn/t5WHmruk8vOghg8+k2+Zj2TIrsvqp91+/luFGnB6ywWN/8Ry32K6ifZe0hP9eWzHQIDAQAB

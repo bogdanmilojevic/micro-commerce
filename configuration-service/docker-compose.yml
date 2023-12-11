@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  vault:
+    build: .
+    container_name: vault
+    ports:
+      - "8200:8200"
+    env_file:
+      - .env
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_DEV_ROOT_TOKEN_ID}
+      VAULT_DEV_LISTEN_ADDRESS: ${VAULT_DEV_LISTEN_ADDRESS}
+    cap_add:
+      - IPC_LOCK

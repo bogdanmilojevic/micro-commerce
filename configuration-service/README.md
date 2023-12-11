@@ -1,12 +1,11 @@
-# How To Add Secrets
-- Install HashiCorp vault:
-`brew install vault`
-- Run Vault server `vault server --dev --dev-root-token-id="00000000-0000-0000-0000-000000000000"`
-- Go to `http://localhost:8200`, use token from above for login
-- Navigate to **Secret Engines**
-- Click **Enable new engine**
-- Select **KV**
-- Click **Next**
-- In 'Path' field type **dev**
-- Click **Enable Engine**
-- Run `bash secrets.sh` in terminal. This will add all secrets to your local vault server.
+# Build And Run Vault Docker Container
+- Add token and address to .env file
+- Run `docker compose build`
+- Run `docker compose up -d`
+- Run `docker exec -it vault /bin/bash /secrets.sh` to add secrets
+
+# Check /config Endpoint
+- You should have jq installed on your system `brew install jq`
+- jq is lightweight and flexible command-line JSON processor
+- Run: `curl localhost:8888/config/<service-name>/default -vvv |jq`
+- Example: `curl localhost:8888/config/product-service/default -vvv |jq`
