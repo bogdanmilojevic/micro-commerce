@@ -11,20 +11,9 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:54321/user
-    username: user
-    password: postgres
   jpa:
     hibernate:
       ddl-auto: create-drop
     show-sql: false
   jackson:
     default-property-inclusion: non_null
-
-eureka:
-  client:
-    service-url:
-      default-zone: http://localhost:8761/eureka
-
-jwt:
-  public-key: ${PUBLIC_KEY}
-  private-key: ${PRIVATE_KEY}

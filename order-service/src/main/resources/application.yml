@@ -1,35 +1,23 @@
-application:
-  version: "@project.version"
-
-info:
-  app:
-    description: Order Service
-
 spring:
   application:
     name: order-service
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:54320/order
-    username: order
-    password: postgres
   jpa:
     hibernate:
       ddl-auto: create-drop
   jackson:
     default-property-inclusion: non_null
 
+info:
+  app:
+    description: Order Service
+
 kafka:
   topics:
     notification-topic: notification-topic
 
-eureka:
-  client:
-    service-url:
-      default-zone: http://localhost:8761/
-
 server:
   port: 8084
 
-jwt:
-  public-key: ${PUBLIC_KEY}
