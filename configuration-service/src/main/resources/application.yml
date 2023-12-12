@@ -7,7 +7,7 @@ spring:
     config:
       server:
         vault:
-          host: 127.0.0.1
+          host: localhost
           port: 8200
           order: 1
           kv-version: 2

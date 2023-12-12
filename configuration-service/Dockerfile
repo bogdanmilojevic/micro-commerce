@@ -6,5 +6,4 @@ COPY secrets.sh /secrets.sh
 RUN apk add --no-cache \
     bash \
     ca-certificates \
-    jq
-
+    jq \
