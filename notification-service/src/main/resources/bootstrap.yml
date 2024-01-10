@@ -1,5 +1,5 @@
 spring:
   cloud:
     config:
-      uri: http://localhost:8888/config
+      uri: ${CONFIGURATION_SERVER_PROTOCOL}://${CONFIGURATION_SERVER_HOST}:${CONFIGURATION_SERVER_PORT}/config
       name: notification-service

@@ -17,7 +17,9 @@ import org.thymeleaf.context.Context;
 public class AccountCreatedEventHandlerService {
     private static final String ACCOUNT_CONFIRMATION_EMAIL_TEMPLATE = "account_confirmation_template";
     private static final String UTF_8_ENCODING = "UTF-8";
-    private static final String ACCOUNT_CONFIRMATION_URL = "http://localhost:8080/auth/confirm?token=";
+
+    @Value("${account-confirmation-url}")
+    private static String ACCOUNT_CONFIRMATION_URL;
 
     private final EmailSenderService emailSenderService;
     private final JavaMailSender emailSender;

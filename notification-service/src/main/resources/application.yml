@@ -18,7 +18,7 @@ spring:
             enable: true
             required: true
     verify:
-      host: http://localhost:587
+      host: ${VERIFY_EMAIL_HOST}
 
 kafka:
   broker:
@@ -31,7 +31,7 @@ kafka:
       name: account-topic
       group-id: group-id-2
 
-account-confirmation-url: "http://localhost:8080/auth/confirm?token="
+account-confirmation-url: ${ACCOUNT_CONFIRMATION_URL}
 
 server:
   port: 8083
