@@ -21,6 +21,7 @@ ext {
 }
 
 dependencies {
+    implementation 'me.paulschwarz:spring-dotenv:4.0.0'
     implementation 'org.springframework.cloud:spring-cloud-config-server'
     implementation "org.springframework.vault:spring-vault-core"
     implementation 'me.paulschwarz:spring-dotenv:4.0.0'

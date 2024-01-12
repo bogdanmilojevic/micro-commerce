@@ -1,4 +1,4 @@
 eureka:
   client:
     service-url:
-      default-zone: http://localhost:8761/
+      default-zone: http://${EUREKA_SERVER_HOST}:${EUREKA_SERVER_PORT}/eureka
