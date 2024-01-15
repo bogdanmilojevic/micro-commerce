@@ -6,10 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.OffsetDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -24,19 +21,27 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private UUID userId;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "confirmation_token_id", referencedColumnName = "id")
+    private ConfirmationToken confirmationToken;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "gender_id", referencedColumnName = "id")
+    private Gender gender;
+
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = true)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = true)
     private String lastName;
 
-    @Column(name = "date_of_birth")
+    @Column(name = "date_of_birth", nullable = true)
     private OffsetDateTime dateOfBirth;
 
     @Column(name = "is_enabled")
@@ -45,9 +50,17 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private Set<UserRole> authorities;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "confirmation_token_id", referencedColumnName = "id")
-    private ConfirmationToken confirmationToken;
+    @OneToMany(mappedBy = "user")
+    private List<UserAddress> addresses;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserFavourite> favourites;
+
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
+
+    @Column(name = "salutation", nullable = true)
+    private String salutation;
 
     public User() {
         this.authorities = new HashSet<>();
