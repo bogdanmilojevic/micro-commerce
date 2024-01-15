@@ -114,7 +114,7 @@ public class ProductService {
     }
 
     public List<ProductResponse> getProductsBySkuCode(List<String> skuCodes) {
-        return productRepository.findBySkuCodes(skuCodes).stream()
+        return productRepository.findProductsBySkuCodeIn(skuCodes).stream()
                 .map(productMapper::toResponse)
                 .toList();
     }

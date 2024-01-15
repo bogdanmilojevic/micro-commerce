@@ -3,32 +3,30 @@ package com.microcommerce.productservice.data.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "reviews")
+@Table(name = "subcategories")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Review {
+public class Subcategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "value")
-    private String value;
-
-    @Column(name = "user_id")
-    private UUID userId;
+    @Column(name = "name", unique = true)
+    private String name;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    @OneToMany(mappedBy = "subcategory")
+    private Set<Product> products;
 }
