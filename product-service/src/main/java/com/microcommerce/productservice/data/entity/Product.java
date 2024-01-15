@@ -1,5 +1,6 @@
 package com.microcommerce.productservice.data.entity;
 
+import com.microcommerce.productservice.data.enums.ProductStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +21,7 @@ public class Product extends AuditMetadata {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "sku_code")
+    @Column(name = "sku_code",unique = true)
     private String skuCode;
 
     @Column(name = "name")
@@ -44,6 +45,16 @@ public class Product extends AuditMetadata {
 
     @Column(name = "is_deleted")
     private boolean isDeleted;
+
+    @Column(name = "rating", nullable = false)
+    private BigDecimal rating;
+
+    @Column(name = "num_of_reviews", nullable = false)
+    private int numOfReviews;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ProductStatus status;
 
     @OneToMany(mappedBy = "product")
     private Set<Review> reviews;
