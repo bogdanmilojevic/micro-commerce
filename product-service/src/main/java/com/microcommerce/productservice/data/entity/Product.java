@@ -1,53 +1,56 @@
 package com.microcommerce.productservice.data.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.FieldType;
 
 import java.math.BigDecimal;
-import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
-@Document(collation = "products")
+@Entity
+@Table(name = "products")
 @Getter
 @Setter
 @AllArgsConstructor
 @Builder
 public class Product extends AuditMetadata {
+
     @Id
-    @Field(name = "id")
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
     private UUID id;
 
-    @Indexed(unique = true)
-    @Field(name = "sku_code")
+    @Column(name = "sku_code")
     private String skuCode;
 
-    @Field(name = "name")
+    @Column(name = "name")
     private String name;
 
-    @Field(name="price", targetType = FieldType.DECIMAL128)
+    @Column(name="price")
     private BigDecimal price;
 
-    @Field(name = "description")
+    @Column(name = "description")
     private String description;
 
-    @Field(name = "properties")
-    private Map<String, String> properties;
+    @OneToMany(mappedBy = "product")
+    private Set<ProductProperty> properties;
 
-//    private List<Category> categories;
-    @Field(name = "stock")
+    @Column(name = "stock")
     private Integer stock;
 
-    @Field(name = "image_url")
+    @Column(name = "image_url")
     private String imageUrl;
 
-//    private List<Review> reviews;
 
-    @Field(name = "is_deleted")
+    @Column(name = "is_deleted")
     private boolean isDeleted;
+
+    @OneToMany(mappedBy = "product")
+    private Set<Review> reviews;
+
+    @ManyToOne
+    @JoinColumn(name = "subcategory_id", nullable = false)
+    private Subcategory subcategory;
 
     public Product() {
         this.id = UUID.randomUUID();
